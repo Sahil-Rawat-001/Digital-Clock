@@ -7,3 +7,6 @@ This digital clock is build using python and it's module PyQt5 , It shows the wo
  2. Make sure you have python on your system and install PyQt5 module using pip
  
  3. run the program and your digital clock will be started
+
+# screenshot
+![Alt text](image.png)
