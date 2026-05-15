@@ -20,6 +20,8 @@ class Stopwatch(QWidget):
 
         # stop button object
         self.stop_button = QPushButton("Stop")
+       # disable stop button initially
+        self.stop_button.setEnabled(False)
 
         # reset button object
         self.reset_button = QPushButton("Reset")
@@ -30,6 +32,7 @@ class Stopwatch(QWidget):
 
         # setting layout (it is important to center the label)
         vbox = QVBoxLayout() # for vertical layout
+        vbox.setAlignment(Qt.AlignCenter)
         vbox.addWidget(self.time_label) # add time_label to layout
 
         hbox = QHBoxLayout() # for horizontal layout
@@ -43,9 +46,68 @@ class Stopwatch(QWidget):
         # centering label
         self.time_label.setAlignment(Qt.AlignCenter)
 
+        # styling
+
         # setting stylesheet like fontsize and font weight
         self.time_label.setStyleSheet("font-weight: bold;"
-                                      "font-size:140px;")
+                                      "font-size:140px;"
+                                      "color:#defd28")
+
+        self.setStyleSheet("background-color:#0b0b0b;")
+
+        # style start_button
+        self.start_button.setStyleSheet("QPushButton {"
+                                         "font-size:24px;"
+                                         "background-color:#ffffff;"
+                                         "padding:10px;"
+                                        "border-radius:15px;"
+                                        "}"
+                                         
+                                        "QPushButton:hover{"
+                                         "background-color:#48ef1e;"
+                                         "font-weight: bold;"
+                                        "}"
+
+                                        "QPushButton:disabled{"
+                                         "background-color:#7d7d7d;"
+                                         "color:#dcdcdc;"
+                                        "}"
+                                        )
+        
+
+        self.stop_button.setStyleSheet( "QPushButton {"
+                                         "font-size:24px;"
+                                         "background-color:#ffffff;"
+                                         "padding:10px;"
+                                         "border-radius:15px;"
+                                        "}"
+                                         
+                                        "QPushButton:hover{"
+                                         "background-color:#f11818;"
+                                         "color: white;"
+                                         "font-weight: bold;"
+                                        "}"
+                                        
+                                        "QPushButton:disabled{"
+                                         "background-color:#7d7d7d;"
+                                         "color:#dcdcdc;"
+                                         "}"
+                                        )
+        
+
+        self.reset_button.setStyleSheet( "QPushButton {"
+                                        "font-size:24px;"
+                                        "background-color:#ffffff;"
+                                        "padding:10px;"
+                                        "border-radius:15px;"
+                                        "}"
+                                         
+                                        "QPushButton:hover{"
+                                        "background-color:#5aecf3;"
+                                        "font-weight: bold;"
+                                        "}"
+                                        )
+
         
 
         # connect timer to function
@@ -85,14 +147,29 @@ class Stopwatch(QWidget):
         # stopwatch start due to this
         self.timer.start(1000)
 
+        # enable stop button initially
+        self.stop_button.setEnabled(True)
+
+        # disable start button after timer start
+        self.start_button.setEnabled(False)
+
     def stop_stopwatch(self):
         # stopwatch start due to this , stop emmitting timeout signal
         self.timer.stop()
+
+        # enable start button after timer stop
+        self.start_button.setEnabled(True)
+
+        # disable stop button when timer stop
+        self.stop_button.setEnabled(False)
 
     def reset_stopwatch(self):
         self.timer.stop()
         self.elapsed_seconds = 0
         self.time_label.setText("00:00:00")
+
+        self.start_button.setEnabled(True)
+        self.stop_button.setEnabled(False)
 
 
 if __name__ == "__main__":
